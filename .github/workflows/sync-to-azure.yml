@@ -21,5 +21,5 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "GitHub Actions"
           git remote remove azure || true
-          git remote add azure "https://aboawskenan:${AZURE_PAT}@dev.azure.com/aboawskenan/WebShop1/_git/WebShop1"
+          git remote add azure "https://aboawskenan:${AZURE_PAT}@dev.azure.com/aboawskenan/WebShop/_git/WebShop"
           git push azure master --force
