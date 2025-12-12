@@ -1,3 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Http;
+
+
 namespace WebShop1.Models
 {
 	public class Product
@@ -8,10 +13,17 @@ namespace WebShop1.Models
         public decimal Price { get; set; }
 		public int Stock { get; set; }
 		public int CategoryId { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+        public String ImageUrl { get; set; } = "https://via.placeholder.com/150";
+
+        [ValidateNever]
 		public Category? Category { get; set; }
-		public IFormFile? ImageFile { get; set; }
+		
+        [ValidateNever]
         public ICollection<OrderItem> OrderItems { get; set; }
-		public ICollection<ProductIngredient> ProductIngredients { get; set; }
+        [ValidateNever]
+        public ICollection<ProductIngredient> ProductIngredients { get; set; }
 
     }
 }
