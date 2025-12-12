@@ -9,6 +9,7 @@ namespace WebShop1.Models
 		public int Stock { get; set; }
 		public int CategoryId { get; set; }
 		public Category? Category { get; set; }
+		public IFormFile? ImageFile { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
 		public ICollection<ProductIngredient> ProductIngredients { get; set; }
 

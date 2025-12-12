@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebShop1.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class SeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -284,11 +284,10 @@ namespace WebShop1.Migrations
                 columns: new[] { "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Klær" },
-                    { 2, "Utstyr" },
-                    { 3, "Møbler" },
-                    { 4, "Bøker" },
-                    { 5, "Mat" }
+                    { 1, "Forretter" },
+                    { 2, "Hovedretter" },
+                    { 3, "Desserter" },
+                    { 4, "Drikke" }
                 });
 
             migrationBuilder.InsertData(
@@ -296,18 +295,16 @@ namespace WebShop1.Migrations
                 columns: new[] { "IngredientId", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Hvetemel" },
-                    { 2, "Durumhvete" },
-                    { 3, "Salt" },
-                    { 4, "Sukker" },
-                    { 5, "Kakao" },
-                    { 6, "Kakaosmør" },
-                    { 7, "Vanilje" },
-                    { 8, "Egg" },
-                    { 9, "Melk" },
-                    { 10, "Smør" },
-                    { 11, "Olivenolje" },
-                    { 12, "Vann" }
+                    { 1, "Kylling" },
+                    { 2, "Ris" },
+                    { 3, "Pasta" },
+                    { 4, "Fløte" },
+                    { 5, "Parmesan" },
+                    { 6, "Tomat" },
+                    { 7, "Laks" },
+                    { 8, "Potet" },
+                    { 9, "Sjokolade" },
+                    { 10, "Vanilje" }
                 });
 
             migrationBuilder.InsertData(
@@ -315,16 +312,10 @@ namespace WebShop1.Migrations
                 columns: new[] { "ProductId", "CategoryId", "Description", "Name", "Price", "Stock" },
                 values: new object[,]
                 {
-                    { 1, 1, "Myk bomulls-t-skjorte i god kvalitet.", "T-skjorte", 199m, 50 },
-                    { 2, 1, "Varm og komfortabel hettegenser.", "Hettegenser", 499m, 30 },
-                    { 3, 2, "Romslig treningsbag med flere lommer.", "Treningsbag", 349m, 40 },
-                    { 4, 2, "Rustfri drikkeflaske – holder drikken kald i 12 timer.", "Stålflaske", 199m, 70 },
-                    { 5, 3, "Moderne skrivebord med god arbeidsflate.", "Skrivebord", 1299m, 15 },
-                    { 6, 3, "Ergonomisk kontorstol med justerbare funksjoner.", "Kontorstol", 999m, 20 },
-                    { 7, 4, "En komplett introduksjon til C#-programmering.", "Lærebok i C#", 399m, 25 },
-                    { 8, 4, "Enkel kokebok med lette oppskrifter for alle.", "Kokebok for nybegynnere", 299m, 35 },
-                    { 9, 5, "500 g italiensk pasta laget av durumhvete.", "Pasta Fusilli", 29m, 200 },
-                    { 10, 5, "Intens mørk sjokolade laget av økologiske kakaobønner.", "Mørk sjokolade 70%", 39m, 150 }
+                    { 1, 2, "Pasta med kremet fløtesaus og grillet kylling", "Kylling Alfredo", 159m, 999 },
+                    { 2, 2, "Ovnsbakt laks med poteter og frisk sitronsaus", "Laks med Sitron", 189m, 999 },
+                    { 3, 1, "Hjemmelaget tomatsuppe med basilikum", "Tomatsuppe", 89m, 999 },
+                    { 4, 3, "Fyldig sjokoladekake servert med vaniljeis", "Sjokoladekake", 79m, 999 }
                 });
 
             migrationBuilder.InsertData(
@@ -332,13 +323,15 @@ namespace WebShop1.Migrations
                 columns: new[] { "IngredientId", "ProductId" },
                 values: new object[,]
                 {
-                    { 2, 9 },
-                    { 3, 9 },
-                    { 12, 9 },
-                    { 4, 10 },
-                    { 5, 10 },
-                    { 6, 10 },
-                    { 7, 10 }
+                    { 1, 1 },
+                    { 3, 1 },
+                    { 4, 1 },
+                    { 5, 1 },
+                    { 7, 2 },
+                    { 8, 2 },
+                    { 6, 3 },
+                    { 9, 4 },
+                    { 10, 4 }
                 });
 
             migrationBuilder.CreateIndex(

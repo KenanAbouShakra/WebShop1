@@ -12,8 +12,8 @@ using WebShop1.Data;
 namespace WebShop1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251211132047_Init")]
-    partial class Init
+    [Migration("20251212071906_SeedData")]
+    partial class SeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,27 +247,22 @@ namespace WebShop1.Migrations
                         new
                         {
                             CategoryId = 1,
-                            Name = "Klær"
+                            Name = "Forretter"
                         },
                         new
                         {
                             CategoryId = 2,
-                            Name = "Utstyr"
+                            Name = "Hovedretter"
                         },
                         new
                         {
                             CategoryId = 3,
-                            Name = "Møbler"
+                            Name = "Desserter"
                         },
                         new
                         {
                             CategoryId = 4,
-                            Name = "Bøker"
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            Name = "Mat"
+                            Name = "Drikke"
                         });
                 });
 
@@ -291,62 +286,52 @@ namespace WebShop1.Migrations
                         new
                         {
                             IngredientId = 1,
-                            Name = "Hvetemel"
+                            Name = "Kylling"
                         },
                         new
                         {
                             IngredientId = 2,
-                            Name = "Durumhvete"
+                            Name = "Ris"
                         },
                         new
                         {
                             IngredientId = 3,
-                            Name = "Salt"
+                            Name = "Pasta"
                         },
                         new
                         {
                             IngredientId = 4,
-                            Name = "Sukker"
+                            Name = "Fløte"
                         },
                         new
                         {
                             IngredientId = 5,
-                            Name = "Kakao"
+                            Name = "Parmesan"
                         },
                         new
                         {
                             IngredientId = 6,
-                            Name = "Kakaosmør"
+                            Name = "Tomat"
                         },
                         new
                         {
                             IngredientId = 7,
-                            Name = "Vanilje"
+                            Name = "Laks"
                         },
                         new
                         {
                             IngredientId = 8,
-                            Name = "Egg"
+                            Name = "Potet"
                         },
                         new
                         {
                             IngredientId = 9,
-                            Name = "Melk"
+                            Name = "Sjokolade"
                         },
                         new
                         {
                             IngredientId = 10,
-                            Name = "Smør"
-                        },
-                        new
-                        {
-                            IngredientId = 11,
-                            Name = "Olivenolje"
-                        },
-                        new
-                        {
-                            IngredientId = 12,
-                            Name = "Vann"
+                            Name = "Vanilje"
                         });
                 });
 
@@ -439,92 +424,38 @@ namespace WebShop1.Migrations
                         new
                         {
                             ProductId = 1,
-                            CategoryId = 1,
-                            Description = "Myk bomulls-t-skjorte i god kvalitet.",
-                            Name = "T-skjorte",
-                            Price = 199m,
-                            Stock = 50
+                            CategoryId = 2,
+                            Description = "Pasta med kremet fløtesaus og grillet kylling",
+                            Name = "Kylling Alfredo",
+                            Price = 159m,
+                            Stock = 999
                         },
                         new
                         {
                             ProductId = 2,
-                            CategoryId = 1,
-                            Description = "Varm og komfortabel hettegenser.",
-                            Name = "Hettegenser",
-                            Price = 499m,
-                            Stock = 30
+                            CategoryId = 2,
+                            Description = "Ovnsbakt laks med poteter og frisk sitronsaus",
+                            Name = "Laks med Sitron",
+                            Price = 189m,
+                            Stock = 999
                         },
                         new
                         {
                             ProductId = 3,
-                            CategoryId = 2,
-                            Description = "Romslig treningsbag med flere lommer.",
-                            Name = "Treningsbag",
-                            Price = 349m,
-                            Stock = 40
+                            CategoryId = 1,
+                            Description = "Hjemmelaget tomatsuppe med basilikum",
+                            Name = "Tomatsuppe",
+                            Price = 89m,
+                            Stock = 999
                         },
                         new
                         {
                             ProductId = 4,
-                            CategoryId = 2,
-                            Description = "Rustfri drikkeflaske – holder drikken kald i 12 timer.",
-                            Name = "Stålflaske",
-                            Price = 199m,
-                            Stock = 70
-                        },
-                        new
-                        {
-                            ProductId = 5,
                             CategoryId = 3,
-                            Description = "Moderne skrivebord med god arbeidsflate.",
-                            Name = "Skrivebord",
-                            Price = 1299m,
-                            Stock = 15
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            CategoryId = 3,
-                            Description = "Ergonomisk kontorstol med justerbare funksjoner.",
-                            Name = "Kontorstol",
-                            Price = 999m,
-                            Stock = 20
-                        },
-                        new
-                        {
-                            ProductId = 7,
-                            CategoryId = 4,
-                            Description = "En komplett introduksjon til C#-programmering.",
-                            Name = "Lærebok i C#",
-                            Price = 399m,
-                            Stock = 25
-                        },
-                        new
-                        {
-                            ProductId = 8,
-                            CategoryId = 4,
-                            Description = "Enkel kokebok med lette oppskrifter for alle.",
-                            Name = "Kokebok for nybegynnere",
-                            Price = 299m,
-                            Stock = 35
-                        },
-                        new
-                        {
-                            ProductId = 9,
-                            CategoryId = 5,
-                            Description = "500 g italiensk pasta laget av durumhvete.",
-                            Name = "Pasta Fusilli",
-                            Price = 29m,
-                            Stock = 200
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            CategoryId = 5,
-                            Description = "Intens mørk sjokolade laget av økologiske kakaobønner.",
-                            Name = "Mørk sjokolade 70%",
-                            Price = 39m,
-                            Stock = 150
+                            Description = "Fyldig sjokoladekake servert med vaniljeis",
+                            Name = "Sjokoladekake",
+                            Price = 79m,
+                            Stock = 999
                         });
                 });
 
@@ -545,38 +476,48 @@ namespace WebShop1.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = 9,
-                            IngredientId = 2
+                            ProductId = 1,
+                            IngredientId = 1
                         },
                         new
                         {
-                            ProductId = 9,
+                            ProductId = 1,
                             IngredientId = 3
                         },
                         new
                         {
-                            ProductId = 9,
-                            IngredientId = 12
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            IngredientId = 5
-                        },
-                        new
-                        {
-                            ProductId = 10,
-                            IngredientId = 6
-                        },
-                        new
-                        {
-                            ProductId = 10,
+                            ProductId = 1,
                             IngredientId = 4
                         },
                         new
                         {
-                            ProductId = 10,
+                            ProductId = 1,
+                            IngredientId = 5
+                        },
+                        new
+                        {
+                            ProductId = 2,
                             IngredientId = 7
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            IngredientId = 8
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            IngredientId = 6
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            IngredientId = 9
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            IngredientId = 10
                         });
                 });
 

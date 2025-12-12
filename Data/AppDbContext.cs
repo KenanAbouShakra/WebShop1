@@ -34,141 +34,83 @@ namespace WebShop1.Data
 
             // Seed Data
             builder.Entity<Category>().HasData(
-                new Category { CategoryId = 1, Name = "Klær" },
-                new Category { CategoryId = 2, Name = "Utstyr" },
-                new Category { CategoryId = 3, Name = "Møbler" },
-                new Category { CategoryId = 4, Name = "Bøker" },
-                new Category { CategoryId = 5, Name = "Mat" }
-            );
+     new Category { CategoryId = 1, Name = "Forretter" },
+     new Category { CategoryId = 2, Name = "Hovedretter" },
+     new Category { CategoryId = 3, Name = "Desserter" },
+     new Category { CategoryId = 4, Name = "Drikke" }
+ );
 
             builder.Entity<Ingredient>().HasData(
-    new Ingredient { IngredientId = 1, Name = "Hvetemel" },
-    new Ingredient { IngredientId = 2, Name = "Durumhvete" },
-    new Ingredient { IngredientId = 3, Name = "Salt" },
-    new Ingredient { IngredientId = 4, Name = "Sukker" },
-    new Ingredient { IngredientId = 5, Name = "Kakao" },
-    new Ingredient { IngredientId = 6, Name = "Kakaosmør" },
-    new Ingredient { IngredientId = 7, Name = "Vanilje" },
-    new Ingredient { IngredientId = 8, Name = "Egg" },
-    new Ingredient { IngredientId = 9, Name = "Melk" },
-    new Ingredient { IngredientId = 10, Name = "Smør" },
-    new Ingredient { IngredientId = 11, Name = "Olivenolje" },
-    new Ingredient { IngredientId = 12, Name = "Vann" }
-);
+                new Ingredient { IngredientId = 1, Name = "Kylling" },
+                new Ingredient { IngredientId = 2, Name = "Ris" },
+                new Ingredient { IngredientId = 3, Name = "Pasta" },
+                new Ingredient { IngredientId = 4, Name = "Fløte" },
+                new Ingredient { IngredientId = 5, Name = "Parmesan" },
+                new Ingredient { IngredientId = 6, Name = "Tomat" },
+                new Ingredient { IngredientId = 7, Name = "Laks" },
+                new Ingredient { IngredientId = 8, Name = "Potet" },
+                new Ingredient { IngredientId = 9, Name = "Sjokolade" },
+                new Ingredient { IngredientId = 10, Name = "Vanilje" }
+            );
+
 
             builder.Entity<Product>().HasData(
-    // Klær
-    new Product
-    {
-        ProductId = 1,
-        Name = "T-skjorte",
-        Description = "Myk bomulls-t-skjorte i god kvalitet.",
-        Price = 199m,
-        Stock = 50,
-        CategoryId = 1
-    },
-    new Product
-    {
-        ProductId = 2,
-        Name = "Hettegenser",
-        Description = "Varm og komfortabel hettegenser.",
-        Price = 499m,
-        Stock = 30,
-        CategoryId = 1
-    },
-
-    // Utstyr
-    new Product
-    {
-        ProductId = 3,
-        Name = "Treningsbag",
-        Description = "Romslig treningsbag med flere lommer.",
-        Price = 349m,
-        Stock = 40,
-        CategoryId = 2
-    },
-    new Product
-    {
-        ProductId = 4,
-        Name = "Stålflaske",
-        Description = "Rustfri drikkeflaske – holder drikken kald i 12 timer.",
-        Price = 199m,
-        Stock = 70,
-        CategoryId = 2
-    },
-
-    // Møbler
-    new Product
-    {
-        ProductId = 5,
-        Name = "Skrivebord",
-        Description = "Moderne skrivebord med god arbeidsflate.",
-        Price = 1299m,
-        Stock = 15,
-        CategoryId = 3
-    },
-    new Product
-    {
-        ProductId = 6,
-        Name = "Kontorstol",
-        Description = "Ergonomisk kontorstol med justerbare funksjoner.",
-        Price = 999m,
-        Stock = 20,
-        CategoryId = 3
-    },
-
-    // Bøker
-    new Product
-    {
-        ProductId = 7,
-        Name = "Lærebok i C#",
-        Description = "En komplett introduksjon til C#-programmering.",
-        Price = 399m,
-        Stock = 25,
-        CategoryId = 4
-    },
-    new Product
-    {
-        ProductId = 8,
-        Name = "Kokebok for nybegynnere",
-        Description = "Enkel kokebok med lette oppskrifter for alle.",
-        Price = 299m,
-        Stock = 35,
-        CategoryId = 4
-    },
-
-    // Mat
-    new Product
-    {
-        ProductId = 9,
-        Name = "Pasta Fusilli",
-        Description = "500 g italiensk pasta laget av durumhvete.",
-        Price = 29m,
-        Stock = 200,
-        CategoryId = 5
-    },
-    new Product
-    {
-        ProductId = 10,
-        Name = "Mørk sjokolade 70%",
-        Description = "Intens mørk sjokolade laget av økologiske kakaobønner.",
-        Price = 39m,
-        Stock = 150,
-        CategoryId = 5
-    }
-);
+     new Product
+     {
+         ProductId = 1,
+         Name = "Kylling Alfredo",
+         Description = "Pasta med kremet fløtesaus og grillet kylling",
+         Price = 159m,
+         Stock = 999, // betyr egentlig ikke noe for restaurant
+         CategoryId = 2
+     },
+     new Product
+     {
+         ProductId = 2,
+         Name = "Laks med Sitron",
+         Description = "Ovnsbakt laks med poteter og frisk sitronsaus",
+         Price = 189m,
+         Stock = 999,
+         CategoryId = 2
+     },
+     new Product
+     {
+         ProductId = 3,
+         Name = "Tomatsuppe",
+         Description = "Hjemmelaget tomatsuppe med basilikum",
+         Price = 89m,
+         Stock = 999,
+         CategoryId = 1
+     },
+     new Product
+     {
+         ProductId = 4,
+         Name = "Sjokoladekake",
+         Description = "Fyldig sjokoladekake servert med vaniljeis",
+         Price = 79m,
+         Stock = 999,
+         CategoryId = 3
+     }
+ );
             builder.Entity<ProductIngredient>().HasData(
-    // Pasta Fusilli (ProductId = 9)
-    new ProductIngredient { ProductId = 9, IngredientId = 2 }, // Durumhvete
-    new ProductIngredient { ProductId = 9, IngredientId = 3 }, // Salt
-    new ProductIngredient { ProductId = 9, IngredientId = 12 }, // Vann (hvis du la inn)
+                // Kylling Alfredo
+                new ProductIngredient { ProductId = 1, IngredientId = 1 },
+                new ProductIngredient { ProductId = 1, IngredientId = 3 },
+                new ProductIngredient { ProductId = 1, IngredientId = 4 },
+                new ProductIngredient { ProductId = 1, IngredientId = 5 },
 
-    // Mørk Sjokolade 70% (ProductId = 10)
-    new ProductIngredient { ProductId = 10, IngredientId = 5 }, // Kakao
-    new ProductIngredient { ProductId = 10, IngredientId = 6 }, // Kakaosmør
-    new ProductIngredient { ProductId = 10, IngredientId = 4 }, // Sukker
-    new ProductIngredient { ProductId = 10, IngredientId = 7 }  // Vanilje
-);
+                // Laks med sitron
+                new ProductIngredient { ProductId = 2, IngredientId = 7 },
+                new ProductIngredient { ProductId = 2, IngredientId = 8 },
+
+                // Tomatsuppe
+                new ProductIngredient { ProductId = 3, IngredientId = 6 },
+
+                // Sjokoladekake
+                new ProductIngredient { ProductId = 4, IngredientId = 9 },
+                new ProductIngredient { ProductId = 4, IngredientId = 10 }
+            );
+
 
 
         }
