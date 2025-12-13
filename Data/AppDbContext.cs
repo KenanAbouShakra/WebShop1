@@ -32,6 +32,7 @@ namespace WebShop1.Data
                 .WithMany(i => i.ProductIngredients)
                 .HasForeignKey(pi => pi.IngredientId);
 
+
             // Seed Data
             builder.Entity<Category>().HasData(
      new Category { CategoryId = 1, Name = "Forretter" },

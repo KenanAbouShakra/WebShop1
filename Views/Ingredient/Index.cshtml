@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Ingredient>
+@{
+    ViewBag.Title = "List of Ingredients";
+}
+<h1>Ingredients</h1>
+<table class="table">
+    <thead>
+       <tr>
+           <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th></th>
+       </tr>
+    </thead>
+    <tbody>
+        
+            @foreach(Ingredient i in Model)
+            {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => i.Name)
+                </td>
+            </tr>
+            }
+        
+    </tbody>
+</table>

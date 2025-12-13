@@ -23,9 +23,9 @@ namespace WebShop1.Models
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbSet.ToListAsync();
         }
 
         public Task<T> GetByIdAsync(int id, QueryOptions<T> options)
