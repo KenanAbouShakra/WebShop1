@@ -1,6 +1,6 @@
 ﻿namespace WebShop1.Models
 {
-    public class ProductIngredient
+    public class ProductIngredients
     {
         public int ProductId { get; set; }
         public Product Product { get; set; }

@@ -5,13 +5,18 @@ namespace WebShop1.Models
     {
         public Expression<Func<T, Object>> OrderBy { get; set; } = null;
         public Expression<Func<T, bool>> Where { get; set; } = null!;
-        private string[] inclodes = Array.Empty<string>();
 
-        public string Inclodes
+        private string[] includes = Array.Empty<string>();
+
+        public string Includes
         {
-            set => inclodes = value.Replace("", "").Split(',');
+            set => includes = string.IsNullOrWhiteSpace(value)
+                ? Array.Empty<string>()
+                : value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
         }
-        public string[] GetIncludes() => inclodes;
+
+        public string[] GetIncludes() => includes;
+
         public bool HasWhere=> Where != null;
         public bool HasOrderBy => OrderBy != null;
 

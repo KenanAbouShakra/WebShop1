@@ -13,21 +13,21 @@ namespace WebShop1.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<ProductIngredient> ProductIngredients { get; set; }
+        public DbSet<ProductIngredients> ProductIngredients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ProductIngredient>()
+            builder.Entity<ProductIngredients>()
                 .HasKey(pi => new { pi.ProductId, pi.IngredientId });
 
-            builder.Entity<ProductIngredient>()
+            builder.Entity<ProductIngredients>()
                 .HasOne(pi => pi.Product)
                 .WithMany(p => p.ProductIngredients)
                 .HasForeignKey(pi => pi.ProductId);
 
-            builder.Entity<ProductIngredient>()
+            builder.Entity<ProductIngredients>()
                 .HasOne(pi => pi.Ingredient)
                 .WithMany(i => i.ProductIngredients)
                 .HasForeignKey(pi => pi.IngredientId);
@@ -93,23 +93,23 @@ namespace WebShop1.Data
          CategoryId = 3
      }
  );
-            builder.Entity<ProductIngredient>().HasData(
+            builder.Entity<ProductIngredients>().HasData(
                 // Kylling Alfredo
-                new ProductIngredient { ProductId = 1, IngredientId = 1 },
-                new ProductIngredient { ProductId = 1, IngredientId = 3 },
-                new ProductIngredient { ProductId = 1, IngredientId = 4 },
-                new ProductIngredient { ProductId = 1, IngredientId = 5 },
+                new ProductIngredients { ProductId = 1, IngredientId = 1 },
+                new ProductIngredients { ProductId = 1, IngredientId = 3 },
+                new ProductIngredients { ProductId = 1, IngredientId = 4 },
+                new ProductIngredients { ProductId = 1, IngredientId = 5 },
 
                 // Laks med sitron
-                new ProductIngredient { ProductId = 2, IngredientId = 7 },
-                new ProductIngredient { ProductId = 2, IngredientId = 8 },
+                new ProductIngredients { ProductId = 2, IngredientId = 7 },
+                new ProductIngredients { ProductId = 2, IngredientId = 8 },
 
                 // Tomatsuppe
-                new ProductIngredient { ProductId = 3, IngredientId = 6 },
+                new ProductIngredients { ProductId = 3, IngredientId = 6 },
 
                 // Sjokoladekake
-                new ProductIngredient { ProductId = 4, IngredientId = 9 },
-                new ProductIngredient { ProductId = 4, IngredientId = 10 }
+                new ProductIngredients { ProductId = 4, IngredientId = 9 },
+                new ProductIngredients { ProductId = 4, IngredientId = 10 }
             );
 
 

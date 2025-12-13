@@ -15,5 +15,9 @@ namespace WebShop1.Controllers
         {
             return View(await ingredients.GetAllAsync());
         }
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(await ingredients.GetByIdAsync(id, new QueryOptions<Ingredient>() { Includes="ProductIngredients.Product"}));
+        }
     }
 }

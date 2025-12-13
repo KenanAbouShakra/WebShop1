@@ -23,7 +23,7 @@ namespace WebShop1.Models
         [ValidateNever]
         public ICollection<OrderItem> OrderItems { get; set; }
         [ValidateNever]
-        public ICollection<ProductIngredient> ProductIngredients { get; set; }
+        public ICollection<ProductIngredients> ProductIngredients { get; set; }
 
     }
 }

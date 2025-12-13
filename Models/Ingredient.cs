@@ -8,7 +8,7 @@ namespace WebShop1.Models
         public string Name { get; set; }
 
         [ValidateNever]
-        public ICollection<ProductIngredient> ProductIngredients { get; set; }
+        public ICollection<ProductIngredients> ProductIngredients { get; set; }
 
 
     }
