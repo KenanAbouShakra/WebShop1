@@ -19,5 +19,20 @@ namespace WebShop1.Controllers
         {
             return View(await ingredients.GetByIdAsync(id, new QueryOptions<Ingredient>() { Includes="ProductIngredients.Product"}));
         }
+        [HttpGet]
+        public IActionResult Create() {
+            return View();
+        }
+        [HttpPost]
+        [ ValidateAntiForgeryToken]
+        public async Task<IActionResult>Create([Bind("Ingredient, Name")] Ingredient ingredient)
+        {
+            if(ModelState.IsValid)
+            {
+                await ingredients.AddAsync(ingredient);
+                return RedirectToAction("Index");
+            }
+            return View(ingredient);
+        }
     }
 }
