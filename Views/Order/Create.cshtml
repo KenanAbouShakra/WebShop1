@@ -1,0 +1,53 @@
+﻿@model WebShop1.Models.OrderViewModel
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Create Order";
+}
+
+@functions {
+    string FormatPrice(decimal price) =>
+        price.ToString("N2", CultureInfo.GetCultureInfo("nb-NO")) + " kr";
+}
+
+<h1>Create Order</h1>
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4 mb-3">
+            <form asp-controller="Order" asp-action="AddItem" method="post">
+                <div class="card h-100 w-100">
+                    <img src="@Url.Content("~/images/" + (string.IsNullOrWhiteSpace(product.ImageUrl) ? "default.jpg" : product.ImageUrl))"
+                         class="card-img-top product-img"
+                         alt="@product.Description" />
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text fw-bold mb-2">@FormatPrice(product.Price)</p>
+
+                        <input type="hidden" name="prodId" value="@product.ProductId" />
+
+                        <input type="number"
+                               name="prodQty"
+                               value="1"
+                               min="1"
+                               class="form-control mb-2" />
+
+                        <button type="submit" class="btn btn-info mt-auto">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+@if (Model.OrederItems != null && Model.OrederItems.Any())
+{
+    <form asp-action="CompleteOrder" method="post">
+        <button class="btn btn-success mt-3">
+            Fullfør bestilling
+        </button>
+    </form>
+}

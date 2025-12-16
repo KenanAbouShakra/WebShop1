@@ -18,6 +18,18 @@ namespace WebShop1.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            // OrderItem -> Product (FK hos deg heter PrudetId)
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.Product)
+                .WithMany()
+                .HasForeignKey(oi => oi.PrudetId);
+
+            // OrderItem -> Order (navigation hos deg heter Oreder)
+            builder.Entity<OrderItem>()
+                .HasOne(oi => oi.Oreder)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId);
+
 
             builder.Entity<ProductIngredients>()
                 .HasKey(pi => new { pi.ProductId, pi.IngredientId });

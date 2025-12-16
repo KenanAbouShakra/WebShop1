@@ -1,0 +1,59 @@
+﻿@model WebShop1.Models.Product
+
+@{
+    ViewData["Title"] = "Details Product";
+}
+
+<div class="mb-3">
+    <strong>Name:</strong> @Model.Name
+</div>
+
+<div class="mb-3">
+    <strong>Description:</strong> @Model.Description
+</div>
+
+<div class="mb-3">
+    <strong>Price:</strong> @Model.Price
+</div>
+<div class="mb-3">
+    <strong>Ingredients:</strong>
+
+    @if (Model.ProductIngredients != null && Model.ProductIngredients.Any())
+    {
+        <ul class="mt-2">
+            @foreach (var pi in Model.ProductIngredients)
+            {
+                <li>
+                    @pi.Ingredient?.Name
+                    @* hvis du har Quantity/Amount på koblingstabellen *@
+                    @* - @pi.Quantity *@
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="text-muted mt-2">No ingredients</div>
+    }
+</div>
+
+
+<div class="mb-3">
+    <strong>Stock:</strong> @Model.Stock
+</div>
+
+<div class="mb-3">
+    <strong>Image:</strong><br />
+    <img src="~/images/@Model.ImageUrl"
+         alt="@Model.Name"
+         style="max-width:200px;"
+         class="img-thumbnail" />
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="productId" value="@Model.ProductId" />
+
+    <a asp-action="Index" class="btn btn-secondary">
+       Back to the List
+    </a>
+</form>

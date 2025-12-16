@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebShop1.Models.Order>
+
+<h2>Mine bestillinger</h2>
+
+@if (!Model.Any())
+{
+    <p>Du har ingen bestillinger ennå.</p>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Bestilling #@order.OrderId –
+                @order.OrderDate.ToString("dd.MM.yyyy HH:mm")
+            </div>
+
+            <ul class="list-group list-group-flush">
+                @foreach (var item in order.OrderItems)
+                {
+                    <li class="list-group-item">
+                        Produkt ID: @item.PrudetId |
+                        Produkt: @item.Product?.Name |
+                        Antall: @item.Quantity |
+                        Pris: @(item.Price* item.Quantity) kr
+                    </li>
+                }
+            </ul>
+
+            <div class="card-footer fw-bold">
+                Total: @order.TotalAmount kr
+            </div>
+        </div>
+    }
+}

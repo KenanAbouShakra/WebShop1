@@ -15,6 +15,19 @@ namespace KenanRestaurant.Controllers
             _db = db;
             _env = env;
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _db.Products
+                .Include(p => p.ProductIngredients)
+                .ThenInclude(pi => pi.Ingredient)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
 
         // ============== LIST ==============
         [HttpGet]

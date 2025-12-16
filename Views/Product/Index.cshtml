@@ -16,7 +16,15 @@
     @foreach (var product in Model)
     {
         <div class="col-md-4 d-flex">
-            <div class="card h-100 w-100">
+            <div class="card h-100 w-100 position-relative">
+
+                <!-- Klikk på kortet => Details -->
+                <a asp-controller="Product"
+                   asp-action="Details"
+                   asp-route-id="@product.ProductId"
+                   class="stretched-link">
+                </a>
+
                 <img src="@Url.Content("~/images/" + (string.IsNullOrWhiteSpace(product.ImageUrl) ? "default.jpg" : product.ImageUrl))"
                      class="card-img-top product-img"
                      alt="@product.Description" />
@@ -28,7 +36,8 @@
                     <p class="card-text fw-bold mb-1">@FormatPrice(product.Price)</p>
                     <p class="card-text mb-2">Quantity in Stock: @product.Stock</p>
 
-                    <div class="mt-auto d-flex gap-2">
+                    <!-- Viktig: disse må være "over" stretched-link -->
+                    <div class="mt-auto d-flex gap-2 position-relative" style="z-index: 2;">
                         <a class="btn btn-sm btn-warning"
                            asp-action="AddEdit"
                            asp-route-id="@product.ProductId">Edit</a>

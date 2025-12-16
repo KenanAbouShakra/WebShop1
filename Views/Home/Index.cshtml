@@ -4,9 +4,18 @@
 
 <div class="text-center mt-4">
     <h1 class="display-4">Velkommen til WebShop1!</h1>
-    <p class="lead">Din nye resturant for nydlig mat.</p>
+    <p class="lead">Din nye restaurant for nydelig mat.</p>
 
-    <a class="btn btn-primary btn-lg mt-3" asp-controller="Products" asp-action="Index">
+    <a class="btn btn-primary btn-lg mt-3"
+       asp-controller="Product"
+       asp-action="Index">
         Se produkter
     </a>
+
+    <div class="mb-3 mt-4">
+        <img src="~/images/default.jpg"
+             alt="WebShop1"
+             style="max-width:80%;"
+             class="img-thumbnail" />
+    </div>
 </div>
