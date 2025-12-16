@@ -1,15 +1,15 @@
 ﻿@model WebShop1.Models.Product
+@using WebShop1.Models
 
 @{
     ViewBag.Title = $"{ViewBag.Operation} Menu Item";
-    var categories = (IEnumerable<WebShop1.Models.Category>)ViewBag.Categories;
-    var ingredients = (IEnumerable<WebShop1.Models.Ingredient>)ViewBag.Ingredients;
-    //var selected = ViewBag.SelectedIngredientIds as List<int> ?? new List<int>();
+    var categories = ViewBag.Categories as IEnumerable<Category> ?? Enumerable.Empty<Category>();
+    var ingredients = ViewBag.Ingredients as IEnumerable<Ingredient> ?? Enumerable.Empty<Ingredient>();
 }
 
 <h1>@ViewBag.Operation Menu Item</h1>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-action="AddEdit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ProductId" />
 
     <div class="form-group mb-2">
@@ -38,7 +38,7 @@
 
     <div class="form-group mb-3">
         <label>Upload Image</label>
-        <input type="file" class="form-control" name="ImageFile" />
+        <input type="file" class="form-control" asp-for="ImageFile" />
     </div>
 
     <div class="row">
@@ -60,24 +60,24 @@
                 </div>
             }
         </div>
+
         <div class="col">
             <h5>Ingredients</h5>
-            @foreach (Ingredient ingredient in ViewBag.Ingredients)
+            @foreach (var ingredient in ingredients)
             {
+                var checkedIng =
+                Model.ProductIngredients != null &&
+                Model.ProductIngredients.Any(pi => pi.IngredientId == ingredient.IngredientId);
+
                 <div class="form-check">
-                    @{
-                        bool isChecked =
-                        Model.ProductIngredients != null &&
-                        Model.ProductIngredients.Any(pi => pi.IngredientId == ingredient.IngredientId);
-                    }
-
-                    <input type="checkbox"
-                           class="form-check-input"
+                    <input class="form-check-input"
+                           type="checkbox"
                            name="ingredientIds"
+                           id="ing_@ingredient.IngredientId"
                            value="@ingredient.IngredientId"
-                           @(isChecked ? "checked" : "") />
+                           @(checkedIng ? "checked" : "") />
 
-                    <label class="form-check-label">
+                    <label class="form-check-label" for="ing_@ingredient.IngredientId">
                         @ingredient.Name
                     </label>
                 </div>

@@ -16,7 +16,8 @@ namespace KenanRestaurant.Controllers
             _env = env;
         }
 
-        // ================= LIST =================
+        // ============== LIST ==============
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var products = await _db.Products
@@ -26,105 +27,101 @@ namespace KenanRestaurant.Controllers
             return View(products);
         }
 
-        // ================= CREATE (GET) =================
+        // ============== ADD/EDIT (GET) ==============
+        // id = 0 => Create, id > 0 => Edit
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> AddEdit(int id = 0)
         {
             await LoadDropdowns();
-            ViewBag.Operation = "Create";
-            return View(new Product());
-        }
 
-        // ================= CREATE (POST) =================
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, int[] ingredientIds)
-        {
-            if (!ModelState.IsValid)
+            if (id == 0)
             {
-                await LoadDropdowns();
                 ViewBag.Operation = "Create";
-                return View(product);
-            }
-
-            // ---------- IMAGE ----------
-            if (product.ImageFile != null)
-            {
-                product.ImageUrl = await SaveImage(product.ImageFile);
-            }
-
-            _db.Products.Add(product);
-            await _db.SaveChangesAsync();
-
-            // ---------- INGREDIENTS ----------
-            if (ingredientIds != null)
-            {
-                foreach (var ingId in ingredientIds)
+                return View(new Product
                 {
-                    _db.ProductIngredients.Add(new ProductIngredients
-                    {
-                        ProductId = product.ProductId,
-                        IngredientId = ingId
-                    });
-                }
-                await _db.SaveChangesAsync();
+                    ImageUrl = "default.jpg" // default bilde i /wwwroot/images/default.jpg
+                });
             }
 
-            return RedirectToAction(nameof(Index));
-        }
-
-        // ================= EDIT (GET) =================
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
             var product = await _db.Products
                 .Include(p => p.ProductIngredients)
                 .FirstOrDefaultAsync(p => p.ProductId == id);
 
             if (product == null) return NotFound();
 
-            await LoadDropdowns();
-            ViewBag.Operation = "Edit";
+            ViewBag.Operation = "Update";
             return View(product);
         }
 
-        // ================= EDIT (POST) =================
+        // ============== ADD/EDIT (POST) ==============
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Product product, int[] ingredientIds)
+        public async Task<IActionResult> AddEdit(Product product, int[] ingredientIds)
         {
+            await LoadDropdowns();
+
+            // Fjerner krasj hvis ImageUrl er null
+            product.ImageUrl ??= "default.jpg";
+
             if (!ModelState.IsValid)
             {
-                await LoadDropdowns();
-                ViewBag.Operation = "Edit";
+                ViewBag.Operation = product.ProductId == 0 ? "Create" : "Update";
                 return View(product);
             }
 
+            // ----------- Create -----------
+            if (product.ProductId == 0)
+            {
+                // bilde
+                if (product.ImageFile != null && product.ImageFile.Length > 0)
+                    product.ImageUrl = await SaveImage(product.ImageFile);
+                else
+                    product.ImageUrl = "default.jpg";
+
+                _db.Products.Add(product);
+                await _db.SaveChangesAsync();
+
+                // ingredients (many-to-many)
+                if (ingredientIds != null && ingredientIds.Length > 0)
+                {
+                    foreach (var ingId in ingredientIds.Distinct())
+                    {
+                        _db.ProductIngredients.Add(new ProductIngredients
+                        {
+                            ProductId = product.ProductId,
+                            IngredientId = ingId
+                        });
+                    }
+                    await _db.SaveChangesAsync();
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            // ----------- Update -----------
             var existing = await _db.Products
                 .Include(p => p.ProductIngredients)
                 .FirstOrDefaultAsync(p => p.ProductId == product.ProductId);
 
             if (existing == null) return NotFound();
 
-            // ---------- UPDATE FIELDS ----------
+            // fields
             existing.Name = product.Name;
             existing.Description = product.Description;
             existing.Price = product.Price;
             existing.Stock = product.Stock;
             existing.CategoryId = product.CategoryId;
 
-            // ---------- IMAGE ----------
-            if (product.ImageFile != null)
-            {
+            // bilde: bare hvis nytt bilde er lastet opp
+            if (product.ImageFile != null && product.ImageFile.Length > 0)
                 existing.ImageUrl = await SaveImage(product.ImageFile);
-            }
 
-            // ---------- INGREDIENTS ----------
+            // ingredients: erstatt alle koblinger
             _db.ProductIngredients.RemoveRange(existing.ProductIngredients);
 
-            if (ingredientIds != null)
+            if (ingredientIds != null && ingredientIds.Length > 0)
             {
-                foreach (var ingId in ingredientIds)
+                foreach (var ingId in ingredientIds.Distinct())
                 {
                     _db.ProductIngredients.Add(new ProductIngredients
                     {
@@ -138,7 +135,8 @@ namespace KenanRestaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= DELETE (GET) =================
+        // ============== DELETE ==============
+        // DELETE - GET
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -151,7 +149,7 @@ namespace KenanRestaurant.Controllers
             return View(product);
         }
 
-        // ================= DELETE (POST) =================
+        // DELETE - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int productId)
@@ -169,7 +167,8 @@ namespace KenanRestaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ================= HELPERS =================
+
+        // ============== HELPERS ==============
         private async Task LoadDropdowns()
         {
             ViewBag.Categories = await _db.Categories.ToListAsync();
@@ -178,6 +177,7 @@ namespace KenanRestaurant.Controllers
 
         private async Task<string> SaveImage(IFormFile file)
         {
+            // lagrer i: wwwroot/images
             var uploads = Path.Combine(_env.WebRootPath, "images");
             Directory.CreateDirectory(uploads);
 

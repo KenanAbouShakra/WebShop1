@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<WebShop1.Models.Product>
 @using System.Globalization
 
 @functions {
@@ -6,16 +6,18 @@
         price.ToString("N2", CultureInfo.GetCultureInfo("nb-NO")) + " kr";
 }
 
-
 <h2>Kenan Menu Items</h2>
-<a asp-action="Create" asp-controller="Product" class="btn btn-primary">Create New Item</a>
 
-<div class="row g-3">
+<a asp-action="AddEdit" asp-controller="Product" asp-route-id="0" class="btn btn-primary">
+    Create New Item
+</a>
+
+<div class="row g-3 mt-2">
     @foreach (var product in Model)
     {
         <div class="col-md-4 d-flex">
             <div class="card h-100 w-100">
-                <img src="@Url.Content("~/images/" + product.ImageUrl)"
+                <img src="@Url.Content("~/images/" + (string.IsNullOrWhiteSpace(product.ImageUrl) ? "default.jpg" : product.ImageUrl))"
                      class="card-img-top product-img"
                      alt="@product.Description" />
 
@@ -24,7 +26,17 @@
                     <p class="card-text flex-grow-1">@product.Description</p>
 
                     <p class="card-text fw-bold mb-1">@FormatPrice(product.Price)</p>
-                    <p class="card-text mb-0">Quantity in Stock: @product.Stock</p>
+                    <p class="card-text mb-2">Quantity in Stock: @product.Stock</p>
+
+                    <div class="mt-auto d-flex gap-2">
+                        <a class="btn btn-sm btn-warning"
+                           asp-action="AddEdit"
+                           asp-route-id="@product.ProductId">Edit</a>
+
+                        <a class="btn btn-sm btn-danger"
+                           asp-action="Delete"
+                           asp-route-id="@product.ProductId">Delete</a>
+                    </div>
                 </div>
             </div>
         </div>
